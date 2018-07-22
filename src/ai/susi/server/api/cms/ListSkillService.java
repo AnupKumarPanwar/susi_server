@@ -478,42 +478,42 @@ public class ListSkillService extends AbstractAPIHandler implements APIHandler {
                 }
 
                 if(countFilter) {
-                     if(count == 0) {
+                    if(count == 0) {
                         break;
-                     } else {
+                    } else {
                         count --;
-                     }
-                 }
-                 if (dateFilter) {
-                     long durationInMillisec = TimeUnit.DAYS.toMillis(duration);
-                     long timestamp = System.currentTimeMillis() - durationInMillisec;
-                     String startDate = new Timestamp(timestamp).toString().substring(0, 10); //substring is used for getting timestamp upto date only
-                     String skillCreationDate = jsonValues.get(i).get("creationTime").toString().substring(0,10);
-                     if (skillCreationDate.compareToIgnoreCase(startDate) < 0)
-                     {
-                         continue;
-                     }
-                 }
-                 if (searchFilter) {
-                     JSONObject skillMetadata = jsonValues.get(i);
-                     String skillName = skillMetadata.get("skill_name").toString().toLowerCase();
-                     String authorName = skillMetadata.get("author").toString().toLowerCase();
-                     String skillDescription = skillMetadata.get("descriptions").toString().toLowerCase();
-                     Boolean skillMatches = false;
-                     if (!skillName.matches(searchQuery) && !authorName.matches(searchQuery) && !skillDescription.matches(searchQuery)) {
-                         try {
-                             String skillExamples = skillMetadata.get("examples").toString().toLowerCase();
-                             if (!skillExamples.matches(searchQuery))
-                             {
-                                 continue;
-                             }
-                         }
-                         catch (Exception e)
-                         {
-                             continue;
-                         }
-                     }
-                 }
+                    }
+                }
+                if (dateFilter) {
+                    long durationInMillisec = TimeUnit.DAYS.toMillis(duration);
+                    long timestamp = System.currentTimeMillis() - durationInMillisec;
+                    String startDate = new Timestamp(timestamp).toString().substring(0, 10); //substring is used for getting timestamp upto date only
+                    String skillCreationDate = jsonValues.get(i).get("creationTime").toString().substring(0,10);
+                    if (skillCreationDate.compareToIgnoreCase(startDate) < 0)
+                    {
+                        continue;
+                    }
+                }
+                if (searchFilter) {
+                    JSONObject skillMetadata = jsonValues.get(i);
+                    String skillName = skillMetadata.get("skill_name").toString().toLowerCase();
+                    String authorName = skillMetadata.get("author").toString().toLowerCase();
+                    String skillDescription = skillMetadata.get("descriptions").toString().toLowerCase();
+                    Boolean skillMatches = false;
+                    if (!skillName.matches(searchQuery) && !authorName.matches(searchQuery) && !skillDescription.matches(searchQuery)) {
+                        try {
+                            String skillExamples = skillMetadata.get("examples").toString().toLowerCase();
+                            if (!skillExamples.matches(searchQuery))
+                            {
+                                continue;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            continue;
+                        }
+                    }
+                }
                 filteredData.put(jsonValues.get(i));
             }
             if (countFilter) {
